@@ -7,46 +7,46 @@ of this source tree. -->
 [<img alt="github" src="https://img.shields.io/badge/github-WhatsApp/proxy-8da0cb?style=for-the-badge&labelColor=555555&logo=github" height="20">](https://github.com/WhatsApp/proxy)
 [<img alt="build status" src="https://img.shields.io/github/workflow/status/WhatsApp/proxy/ci/main?style=for-the-badge" height="20">](https://github.com/WhatsApp/proxy/actions?query=branch%3Amain)
 
-If you are unable to connect directly to WhatsApp, a proxy can be used as a gateway between you and our servers. To help yourself or others re-establish connection to WhatsApp, you can set up a proxy server.
+اگر امکان دسترسی مستقیم به واتساپ ندارید، با یک پروکسی میتونید میانجی اتصال خودتان و واتساپ باشید . برای رهایی از شر محدودیت اتصال به واتساپ و کمک به خوداان و دیگران کافیست یک سرور پراکسی راه اندازی کنید.
+اگر قبلا پراکسی سرور دارید برای اتصال کافیست از طریق این  راهنما [مقاله] (https://faq.whatsapp.com/520504143274092) آن را به واتس‌اپ متصل کنید
 
-If you already have a proxy to use, you can connect it to WhatsApp by following the steps in this [article](https://faq.whatsapp.com/520504143274092).
+## چیزهای موردنیاز
 
-## What you'll need
+1. [Docker](https://docs.docker.com/engine/install/) (با امکان راه اندازی خودکار بعد استارت)
+2. [Docker compose](https://docs.docker.com/compose/) (الحاقی)
 
-1. [Docker](https://docs.docker.com/engine/install/) (enable Docker on startup if your host system allows)
-2. [Docker compose](https://docs.docker.com/compose/) (optional)
+## راه اندازی پراکسی
 
-## Setting up your proxy
+### 1. مخزن را روی سرور کلون کنید
+### 2. [نصب داکر](https://docs.docker.com/get-docker/) برپایه سیستم شما
+### 3. نصب داکر کامپوز
 
-### 1. Clone the repository to your local machine
-### 2. [Install Docker](https://docs.docker.com/get-docker/) for your system
-### 3. Install Docker compose
-
-For Linux users, if your [version of Docker](https://docs.docker.com/desktop/install/linux-install/) doesn't come pre-installed with Docker compose, you can install a one-off version (For Linux).
+برای کاربران لینوکس، اگر [نسخه Docker] (https://docs.docker.com/desktop/install/linux-install/) شما با Docker compose از قبل روی سیستم ندارید، می توانید یک نسخه یکباره نصب کنید. (برای لینوکس).
 
 ```bash
-# Download the pkg
+# بسته را دانلود کنید
 sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
-# Enable execution of the script
+# اسکریپت اجرایی را فعال کنید
 sudo chmod +x /usr/bin/docker-compose
 ```
-### 3. Build the proxy host container
+### 3. ساخت محیط میزبان برای پراکسی
 
-Build the proxy host container with
+محیط میزبان(کانتینر) برای پراکسی را با این بسازید
 
 ```bash
 docker build /path_to_cloned_repository/proxy/ -t whatsapp_proxy:1.0
 ```
 
-The container will be compiled and tagged as `whatsapp_proxy:1.0` for easy reference. 
+محیط میزبان برای ارجاع آسان کامپایل و با عنوان 'whatsapp_proxy:1.0' برچسب گذاری می شود.
 
-**Please note**, the `/path_to_cloned_repository` should the same folder where you cloned this repository in step 1 above. Additionally, the Dockerfile to build the container is in a sub-folder **proxy** of the repository.
+**لطفاً توجه داشته باشید**، '/path_to_cloned_repository' باید همان پوشه ای باشد که در مرحله 1 بالا این مخزن را در آن کلون کرده اید. علاوه بر این، Dockerfile برای ساخت کانتینر در یک زیر پوشه **پراکسی** در مخزن قرار دارد.
 
-## Running the proxy
+## اجرای پراکسی
 
-### Manually execute the container
+### کانتینر را به صورت دستی اجرا کنید
 
-You can manually execute the Docker container with the following `docker` command
+می‌توانید ظرف Docker را با دستور «docker» زیر به صورت دستی اجرا کنید
+
 
 ```bash
 docker run -it -p 80:80 -p 443:443 -p 5222:5222 -p 8080:8080 -p 8443:8443 -p 8222:8222 -p 8199:8199 whatsapp_proxy:1.0
